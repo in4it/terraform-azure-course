@@ -26,11 +26,13 @@ The output of terraform shows the public ip
 ssh demo@PUBLIC_IP_HERE-i mykey
 ```
 
-# Connect to MySQL from virtual machine
+# Install MySQL client & Connect to MySQL from virtual machine
 The output of terraform shows the dns of the MySQL
 
 ```
-mysql -h mysql-training.mysql.database.azure.com -u mysqladmin@mysql-training -p
+sudo apt-get update
+sudo apt-get install mysql-client-5.7
+mysql -h DNSNAMEHERE -u mysqladmin@mysql-training -p
 ```
 
 # Cleanup Demo

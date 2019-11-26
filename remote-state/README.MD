@@ -1,5 +1,10 @@
 # Setup Remote state
 
+# Sign in
+```
+az login
+```
+
 # Create recoursegroup for Terraform state
 ```
 az group create -l westeurope -n terraform-state 
