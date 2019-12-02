@@ -20,19 +20,19 @@ az storage account create -g terraform-state -l westeurope \
   --encryption-services blob
 ```
 
-# List account key & Ceate storage container
+# List account key & Create storage container
 
 ```
 az storage account keys list --resource-group terraform-state --account-name tfstoragetrainingjorn --query [0].value -o tsv
 az storage container create --name terraform-state-container --account-name tfstoragetrainingjorn --account-key REPLACE_WITH_ACCOUNT_KEY
 ```
-# Ceate vault key
+# Create vault key
 
 ```
 az keyvault create -g terraform-state -l westeurope --name tfkeytrainingjorn
 ```
 
-# List account key & Ceate vault key secret 
+# List account key & Create vault key secret 
 ```
 az storage account keys list --resource-group terraform-state --account-name tfstoragetrainingjorn --query [0].value -o tsv
 az keyvault secret set --name tfstate-storage-key --value REPLACE_WITH_ACCOUNT_KEY --vault-name tfkeytrainingjorn
