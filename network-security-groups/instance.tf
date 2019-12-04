@@ -46,7 +46,6 @@ resource "azurerm_network_interface" "demo-instance-1" {
     subnet_id                      = azurerm_subnet.demo-internal-1.id
     private_ip_address_allocation  = "Dynamic"
     public_ip_address_id           = azurerm_public_ip.demo-instance-1.id
-    application_security_group_ids = [azurerm_application_security_group.demo-instance-group.id]
   }
 }
 
