@@ -1,13 +1,3 @@
-resource "azurerm_public_ip" "demo" {
-  count               = 1
-  name                = "demo-public-ip"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.demo.name
-  allocation_method   = "Static"
-  domain_name_label   = azurerm_resource_group.demo.name
-  sku                 = length(var.zones) == 0 ? "Basic" : "Standard"
-}
-
 resource "azurerm_lb" "demo" {
   name                = "demo-loadbalancer"
   sku                 = length(var.zones) == 0 ? "Basic" : "Standard" # Basic is free, but doesn't support Availability Zones
@@ -16,9 +6,19 @@ resource "azurerm_lb" "demo" {
 
   frontend_ip_configuration {
     name                 = "PublicIPAddress"
-    public_ip_address_id = azurerm_public_ip.demo[0].id
+    public_ip_address_id = azurerm_public_ip.demo.id
   }
 }
+
+resource "azurerm_public_ip" "demo" {
+  name                = "demo-public-ip"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.demo.name
+  allocation_method   = "Static"
+  domain_name_label   = azurerm_resource_group.demo.name
+  sku                 = length(var.zones) == 0 ? "Basic" : "Standard"
+}
+
 
 resource "azurerm_lb_backend_address_pool" "bpepool" {
   resource_group_name = azurerm_resource_group.demo.name
