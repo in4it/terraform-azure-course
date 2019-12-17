@@ -12,7 +12,7 @@ resource "azurerm_sql_server" "demo" {
   location                     = azurerm_resource_group.demo.location
   version                      = "12.0"
   administrator_login          = "sqladmin"
-# administrator_login_password = "SETSECUREPASS"
+#  administrator_login_password = "GOODPASSWORDHERE"
 }
 
 #resource "azurerm_sql_server" "demo-secondary" {
