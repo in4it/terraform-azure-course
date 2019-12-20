@@ -26,7 +26,7 @@ The output of terraform shows the public ip
 ssh demo@PUBLIC_IP_HERE-i mykey
 ```
 
-# Add mongodb repository and install mssql tools
+# Add mongodb repository and install mongodb client
 
 ```
 wget -qO - https://www.mongodb.org/static/pgp/server-3.4.asc | sudo apt-key add -
@@ -35,21 +35,14 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org-shell
 ```
 
-# Connect to mssql database
-*The output of terraform shows the dns of the MySQL*
+# Connect to mongodb database
+*The output of terraform shows the connect string
 
 ```
-sqlcmd -S DNSNAMEHERE -U sqladmin -P 'REPLACEWITHPASSWORD' -q "SELECT name FROM master.sys.databases"
+mongo URL:PORT -u USERNAME -p PASSWORDHERE --ssl --sslAllowInvalidCertificates
 ```
 
 # Cleanup Demo
 ```
 terraform destroy
-```
-
-# Connect to mssql database via failovergroup
-*The output of terraform shows the dns of the MySQL*
-
-```
-sqlcmd -S DNSNAMEHERE -U sqladmin -P 'REPLACEWITHPASSWORD' -q "SELECT name FROM master.sys.databases"
 ```
