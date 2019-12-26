@@ -38,7 +38,7 @@ resource "azurerm_virtual_machine" "demo-instance" {
       path     = "/home/demo/.ssh/authorized_keys"
     }
   }
-  
+
 }
 
 resource "azurerm_network_interface" "demo-instance" {

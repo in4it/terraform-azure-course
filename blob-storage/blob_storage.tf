@@ -32,7 +32,6 @@ resource "azurerm_storage_blob" "training-file" {
 #data "azurerm_subscription" "primary" {}
 #
 #resource "azurerm_role_definition" "blobrw" {
-#  role_definition_id = "00000000-0000-0000-0000-000000000001"
 #  name               = "access-to-azure-blob"
 #  scope              = data.azurerm_subscription.primary.id
 #
@@ -56,9 +55,7 @@ resource "azurerm_storage_blob" "training-file" {
 #}
 #
 #resource "azurerm_role_assignment" "blobrw_assignment" {
-#  name               = "00000000-0000-0000-0000-000000000001"
 #  scope              = data.azurerm_subscription.primary.id
 #  role_definition_id = azurerm_role_definition.blobrw.id
 #  principal_id       = azurerm_virtual_machine.demo-instance.identity.0.principal_id
 #}
-
