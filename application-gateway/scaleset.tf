@@ -46,7 +46,7 @@ resource "azurerm_virtual_machine_scale_set" "demo" {
     type_handler_version = "2.0"
     settings             = <<SETTINGS
         {
-          "fileUris": ["https://raw.githubusercontent.com/Azure/azure-docs-powershell-samples/master/application-gateway/iis/install_nginx.sh"], 
+          "fileUris": ["https://raw.githubusercontent.com/in4it/terraform-azure-course/master/application-gateway/install_nginx.sh"], 
           "commandToExecute": "./install_nginx.sh"
         }
       SETTINGS
