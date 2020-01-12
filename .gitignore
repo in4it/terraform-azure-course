@@ -5,3 +5,4 @@ mykey.pub
 *.tfstate.backup
 .terraform
 .terraform.tfstate.lock.info
+.DS_Store
