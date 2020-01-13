@@ -3,7 +3,7 @@ variable "one" {
 }
 
 variable "two" {
-  default = 3
+  default = 2
 }
 variable "three" {
   default = 3
