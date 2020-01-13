@@ -19,7 +19,7 @@ resource "azurerm_storage_account" "trainingsa" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   # Example conditionally omitted argument
-  access_tier              = var.override_tier          
+  access_tier = var.override_tier
 }
 
 resource "azurerm_storage_container" "trainingco" {
@@ -28,7 +28,7 @@ resource "azurerm_storage_container" "trainingco" {
   container_access_type = "private"
 }
 
-
+# Example conditional expression
 variable "filename" {
   type    = string
   default = ""
@@ -36,10 +36,11 @@ variable "filename" {
 
 
 resource "azurerm_storage_blob" "training-file" {
-  name                   = var.filename != "" ? var.filename : "traningfile.txt"
+  # Example conditional expression
+  name                   = var.filename != "" ? var.filename : "trainingfile.txt"
   storage_account_name   = azurerm_storage_account.trainingsa.name
   storage_container_name = azurerm_storage_container.trainingco.name
   type                   = "Block"
-  source                 = var.filename != "" ? var.filename : "traningfile.txt"
+  # Example conditional expression
+  source = var.filename != "" ? var.filename : "trainingfile.txt"
 }
-
