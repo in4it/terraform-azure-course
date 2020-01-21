@@ -1,0 +1,20 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-18.04'
+
+variables:
+  imageName: 'demo-app'
+  dockerRegistryServiceConnection: 'demo-app-registry'
+
+steps:
+- task: Docker@2
+  displayName: Build and push image for demo app
+  inputs:
+    repository: $(imageName)
+    command: buildAndPush
+    dockerfile: Dockerfile
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(Build.SourceVersion)
