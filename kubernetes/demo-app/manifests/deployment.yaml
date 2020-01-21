@@ -11,6 +11,6 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: changeme.azurecr.io/demoapp
+          image: changeme.azurecr.io/demo-app
           ports:
           - containerPort: 3000
