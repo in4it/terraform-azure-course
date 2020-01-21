@@ -7,14 +7,69 @@ pool:
 variables:
   imageName: 'demo-app'
   dockerRegistryServiceConnection: 'demo-app-registry'
+  clusterName: 'demo-cluster'
+  namespace: 'default'
+  imagePullSecret: 'demo-app-pull-secret'
+  containerRegistry: 'changeme.azurecr.io'
+  imageRepository: 'demo-app'
 
-steps:
-- task: Docker@2
-  displayName: Build and push image for demo app
-  inputs:
-    repository: $(imageName)
-    command: buildAndPush
-    dockerfile: Dockerfile
-    containerRegistry: $(dockerRegistryServiceConnection)
-    tags: |
-      $(Build.SourceVersion)
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build job
+    steps:
+    - task: Docker@2
+      displayName: Build and push image for demo app
+      inputs:
+        repository: $(imageName)
+        command: buildAndPush
+        dockerfile: Dockerfile
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(Build.SourceVersion)
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: 'manifests'
+
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy job
+    environment: $(clusterName).default
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              namespace: $(namespace)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              kubernetesServiceConnection: $(clusterName)
+              
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              namespace: $(namespace)
+              manifests: |
+                $(System.ArtifactsDirectory)/manifests/deployment.yaml
+                $(System.ArtifactsDirectory)/manifests/service.yaml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(Build.SourceVersion)
+              kubernetesServiceConnection: $(clusterName)
