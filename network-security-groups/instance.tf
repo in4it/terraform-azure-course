@@ -39,7 +39,9 @@ resource "azurerm_network_interface" "demo-instance-1" {
   name                      = "${var.prefix}-instance1"
   location                  = var.location
   resource_group_name       = azurerm_resource_group.demo.name
-  network_security_group_id = azurerm_network_security_group.allow-ssh.id
+  # from terraform-provider-azurerm >2.0 we need to put this in a seperate resource
+  # see azurerm_network_interface_security_group_association below
+  # network_security_group_id = azurerm_network_security_group.allow-ssh.id
 
   ip_configuration {
     name                           = "instance1"
@@ -48,6 +50,12 @@ resource "azurerm_network_interface" "demo-instance-1" {
     public_ip_address_id           = azurerm_public_ip.demo-instance-1.id
   }
 }
+
+resource "azurerm_network_interface_security_group_association" "demo-instance-1" {
+  network_interface_id      = azurerm_network_interface.demo-instance-1.id
+  network_security_group_id = azurerm_network_security_group.allow-ssh.id
+}
+
 
 resource "azurerm_public_ip" "demo-instance-1" {
     name                         = "instance1-public-ip"
@@ -64,7 +72,6 @@ resource "azurerm_application_security_group" "demo-instance-group" {
 
 resource "azurerm_network_interface_application_security_group_association" "demo-instance-group" {
   network_interface_id          = azurerm_network_interface.demo-instance-1.id
-  ip_configuration_name         = "instance1"
   application_security_group_id = azurerm_application_security_group.demo-instance-group.id
 }
 
@@ -109,12 +116,19 @@ resource "azurerm_network_interface" "demo-instance-2" {
   name                      = "${var.prefix}-instance2"
   location                  = var.location
   resource_group_name       = azurerm_resource_group.demo.name
-  network_security_group_id = azurerm_network_security_group.internal-facing.id
+  # from terraform-provider-azurerm >2.0 we need to put this in a seperate resource
+  # see azurerm_network_interface_security_group_association below
+  # network_security_group_id = azurerm_network_security_group.internal-facing.id
 
   ip_configuration {
     name                           = "instance2"
     subnet_id                      = azurerm_subnet.demo-internal-1.id
     private_ip_address_allocation  = "Dynamic"
   }
+}
+
+resource "azurerm_network_interface_security_group_association" "demo-instance-2" {
+  network_interface_id      = azurerm_network_interface.demo-instance-2.id
+  network_security_group_id = azurerm_network_security_group.internal-facing.id
 }
 
