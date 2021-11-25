@@ -13,7 +13,7 @@ resource "azurerm_virtual_machine" "demo-instance" {
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
   storage_os_disk {
@@ -40,7 +40,6 @@ resource "azurerm_network_interface" "demo-instance" {
   name                      = "${var.prefix}-instance1"
   location                  = var.location
   resource_group_name       = azurerm_resource_group.demo.name
-  network_security_group_id = azurerm_network_security_group.allow-ssh.id
 
   ip_configuration {
     name                          = "instance1"
@@ -50,9 +49,20 @@ resource "azurerm_network_interface" "demo-instance" {
   }
 }
 
+resource "azurerm_network_interface_security_group_association" "demo-instance-association" {
+  network_interface_id      = azurerm_network_interface.demo-instance.id
+  network_security_group_id = azurerm_network_security_group.allow-ssh.id
+}
+
 resource "azurerm_public_ip" "demo-instance" {
   name                = "instance1-public-ip"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
   allocation_method   = "Dynamic"
+}
+
+data "azurerm_public_ip" "public_ip" {
+  name = "instance1-public-ip"
+  resource_group_name = azurerm_resource_group.demo.name
+  depends_on = [ azurerm_public_ip.demo-instance, azurerm_virtual_machine.demo-instance ]
 }

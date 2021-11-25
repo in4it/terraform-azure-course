@@ -21,10 +21,6 @@ resource "azurerm_cosmosdb_account" "db" {
     id = azurerm_subnet.demo-internal-1.id
   }
 
-  capabilities {
-    name = "MongoDBv3.4"
-  }
-
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 300
@@ -37,7 +33,6 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   geo_location {
-    prefix            = "cosmosdb-s${random_string.random-name.result}-main"
     location          = azurerm_resource_group.demo.location
     failover_priority = 0
   }
@@ -58,13 +53,18 @@ resource "azurerm_cosmosdb_mongo_collection" "mongo-example-collection" {
   default_ttl_seconds = "777"
   shard_key           = "uniqueKey"
 
-  indexes {
-    key    = "aKey"
+  index {
+    keys   = ["aKey"]
     unique = false
   }
 
-  indexes {
-    key    = "uniqueKey"
+  index {
+    keys   = ["uniqueKey"]
+    unique = true
+  }
+  
+  index {
+    keys   = ["_id"]
     unique = true
   }
 }
