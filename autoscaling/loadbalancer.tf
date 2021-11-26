@@ -21,7 +21,6 @@ resource "azurerm_public_ip" "demo" {
 
 
 resource "azurerm_lb_backend_address_pool" "bpepool" {
-  resource_group_name = azurerm_resource_group.demo.name
   loadbalancer_id     = azurerm_lb.demo.id
   name                = "BackEndAddressPool"
 }
@@ -55,6 +54,6 @@ resource "azurerm_lb_rule" "demo" {
   backend_port                   = 80
   frontend_ip_configuration_name = "PublicIPAddress"
   probe_id                       = azurerm_lb_probe.demo.id
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.bpepool.id
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.bpepool.id]
 }
 
