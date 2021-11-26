@@ -42,7 +42,6 @@ resource "azurerm_network_interface" "demo-instance" {
   name                      = "${var.prefix}-instance1"
   location                  = var.location
   resource_group_name       = azurerm_resource_group.demo.name
-  network_security_group_id = azurerm_network_security_group.allow-ssh.id
 
   dynamic ip_configuration {
     for_each = var.ip-config
@@ -54,6 +53,11 @@ resource "azurerm_network_interface" "demo-instance" {
       primary                       = lookup(ip_configuration.value, "primary")
     }
   }
+}
+
+resource "azurerm_network_interface_security_group_association" "allow-ssh" {
+  network_interface_id      = azurerm_network_interface.demo-instance.id
+  network_security_group_id = azurerm_network_security_group.allow-ssh.id
 }
 
 resource "azurerm_public_ip" "demo-instance" {
