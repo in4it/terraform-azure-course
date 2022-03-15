@@ -1,8 +1,3 @@
-resource "random_password" "aks-demo-sp-password" {
-  length  = 32
-  special = true
-}
-
 resource "azuread_application" "aks-demo" {
   display_name               = "aks-demo"
 }
