@@ -10,7 +10,7 @@ resource "azurerm_subnet" "demo-internal-1" {
   name                 = "${var.prefix}-internal-1"
   resource_group_name  = azurerm_resource_group.demo.name
   virtual_network_name = azurerm_virtual_network.demo.name
-  address_prefix       = "10.0.0.0/24"
+  address_prefixes     = ["10.0.0.0/24"]
   service_endpoints    = ["Microsoft.Sql"]
 }
 
@@ -18,7 +18,7 @@ resource "azurerm_subnet" "demo-database-1" {
   name                 = "${var.prefix}-database-1"
   resource_group_name  = azurerm_resource_group.demo.name
   virtual_network_name = azurerm_virtual_network.demo.name
-  address_prefix       = "10.0.1.0/24"
+  address_prefixes     = ["10.0.1.0/24"]
   service_endpoints    = ["Microsoft.Sql"]
 }
 
