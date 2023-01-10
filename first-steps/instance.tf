@@ -5,9 +5,8 @@ resource "azurerm_linux_virtual_machine" "demo-instance" {
   resource_group_name   = azurerm_resource_group.demo.name
   network_interface_ids = [azurerm_network_interface.demo-instance.id]
   size                  = "Standard_B1ls"
-  admin_username        = "adminuser"
+  admin_username        = var.vm_admin_user
 
-  // az vm image list --architecture x64 --location eastus --publisher Canonical --all --sku 22_04-lts-gen2
   source_image_reference {
     publisher = "Canonical"
     sku       = "22_04-lts-gen2"
@@ -21,8 +20,8 @@ resource "azurerm_linux_virtual_machine" "demo-instance" {
   }
 
   admin_ssh_key {
-    public_key = file("mykey.pub")
-    username   = "adminuser"
+    public_key = file("${var.private_ssh_key}.pub")
+    username   = var.vm_admin_user
   }
 }
 
