@@ -26,11 +26,10 @@ resource "azurerm_mssql_server" "demo" {
 #
 #resource "azurerm_mssql_failover_group" "failover" {
 #  name                = "sqlserver-failover-group-${random_string.random-name.result}"
-#  resource_group_name = azurerm_resource_group.demo.name
 #  server_id           = azurerm_mssql_server.demo.id
 #  databases           = [azurerm_mssql_database.training.id]
 #
-#  partner_servers {
+#  partner_server {
 #    id = azurerm_mssql_server.demo-secondary.id
 #  }
 #
