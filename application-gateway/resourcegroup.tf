@@ -1,4 +1,4 @@
 resource "azurerm_resource_group" "demo" {
-  name     = "applicaiton-gateway-demo"
+  name     = "application-gateway-demo"
   location = var.location
 }

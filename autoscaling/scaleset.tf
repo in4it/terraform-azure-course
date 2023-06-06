@@ -1,11 +1,13 @@
-resource "azurerm_virtual_machine_scale_set" "demo" {
+resource "azurerm_linux_virtual_machine_scale_set" "demo" {
   name                = "mytestscaleset-1"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
 
   # automatic rolling upgrade
-  automatic_os_upgrade = true
-  upgrade_policy_mode  = "Rolling"
+  automatic_os_upgrade_policy {
+    enable_automatic_os_upgrade = true
+    disable_automatic_rollback  = false
+  }
 
   rolling_upgrade_policy {
     max_batch_instance_percent              = 20
@@ -19,49 +21,39 @@ resource "azurerm_virtual_machine_scale_set" "demo" {
 
   zones           = var.zones
 
-  sku {
-    name     = "Standard_A1_v2"
-    tier     = "Standard"
-    capacity = 2
-  }
+  instances = 2
+  sku       = "Standard_A1_v2"
 
-  storage_profile_image_reference {
+  source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "18.04-LTS"
     version   = "latest"
   }
 
-  storage_profile_os_disk {
-    name              = ""
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 
-  storage_profile_data_disk {
-    lun           = 0
-    caching       = "ReadWrite"
-    create_option = "Empty"
-    disk_size_gb  = 10
+  admin_username = "demo"
+  computer_name_prefix = "demo"
+  custom_data          = base64encode("#!/bin/bash\n\napt-get update && apt-get install -y nginx && systemctl enable nginx && systemctl start nginx")
+
+  data_disk {
+    lun                  = 0
+    caching              = "ReadWrite"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+    storage_account_type = "Standard_LRS"
   }
 
-  os_profile {
-    computer_name_prefix = "demo"
-    admin_username       = "demo"
-    custom_data          = "#!/bin/bash\n\napt-get update && apt-get install -y nginx && systemctl enable nginx && systemctl start nginx"
+  admin_ssh_key {
+    username   = "demo"
+    public_key = file("mykey.pub")
   }
 
-  os_profile_linux_config {
-    disable_password_authentication = true
-
-    ssh_keys {
-      key_data = file("mykey.pub")
-      path     = "/home/demo/.ssh/authorized_keys"
-    }
-  }
-
-  network_profile {
+  network_interface {
     name                                     = "networkprofile"
     primary                                  = true
     network_security_group_id                = azurerm_network_security_group.demo-instance.id
