@@ -4,7 +4,7 @@ resource "azurerm_virtual_machine" "demo-instance-1" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.demo.name
   network_interface_ids = [azurerm_network_interface.demo-instance-1.id]
-  vm_size               = "Standard_A1_v2"
+  vm_size               = "Standard_DC1s_v2"
 
   # this is a demo instance, so we can delete all data on termination
   delete_os_disk_on_termination = true
@@ -12,20 +12,24 @@ resource "azurerm_virtual_machine" "demo-instance-1" {
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
+
   storage_os_disk {
     name              = "myosdisk1"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
+
   os_profile {
     computer_name  = "demo-instance"
     admin_username = "demo"
+    #admin_password = "..."
   }
+
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
