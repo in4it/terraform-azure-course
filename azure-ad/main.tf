@@ -1,7 +1,24 @@
-provider "azuread" {
-  version = "=0.7"
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">=3.68.0"
+    }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = ">= 2.41.0"
+    }
+  }
 }
 
+# Configure the Microsoft Azure Provider
 provider "azurerm" {
-  version = "=1.35.0"
+  features {
+  }
+}
+
+# Configure the Azure Active Directory Provider
+provider "azuread" {
+  features {
+  }
 }
