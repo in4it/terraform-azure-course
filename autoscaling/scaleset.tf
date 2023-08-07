@@ -19,15 +19,15 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
   # required when using rolling upgrade policy
   health_probe_id = azurerm_lb_probe.demo.id
 
-  zones           = var.zones
+  zones = var.zones
 
   instances = 2
-  sku       = "Standard_A1_v2"
+  sku       = "Standard_DC1s_v2"
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 
@@ -36,7 +36,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
     storage_account_type = "Standard_LRS"
   }
 
-  admin_username = "demo"
+  admin_username       = "demo"
   computer_name_prefix = "demo"
   custom_data          = base64encode("#!/bin/bash\n\napt-get update && apt-get install -y nginx && systemctl enable nginx && systemctl start nginx")
 
@@ -54,9 +54,9 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
   }
 
   network_interface {
-    name                                     = "networkprofile"
-    primary                                  = true
-    network_security_group_id                = azurerm_network_security_group.demo-instance.id
+    name                      = "networkprofile"
+    primary                   = true
+    network_security_group_id = azurerm_network_security_group.demo-instance.id
 
     ip_configuration {
       name                                   = "IPConfiguration"

@@ -2,7 +2,7 @@ resource "random_string" "random-name" {
   length  = 5
   upper   = false
   lower   = true
-  number  = true
+  numeric = true
   special = false
 }
 
@@ -62,7 +62,7 @@ resource "azurerm_cosmosdb_mongo_collection" "mongo-example-collection" {
     keys   = ["uniqueKey"]
     unique = true
   }
-  
+
   index {
     keys   = ["_id"]
     unique = true

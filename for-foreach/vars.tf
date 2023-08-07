@@ -16,22 +16,21 @@ variable "ip-config" {
   default = [
     {
       name       = "instance1-ip1"
-      allocation = "Dynamic" 
+      allocation = "Dynamic"
       primary    = true
     },
     {
       name       = "instance1-ip2"
-      allocation = "Dynamic" 
+      allocation = "Dynamic"
       primary    = false
     },
   ]
 }
 
 variable "project_tags" {
-  type          = map(string)
-  default       = {
+  type = map(string)
+  default = {
     component   = "Frontend"
     environment = "Production"
   }
 }
-

@@ -1,12 +1,12 @@
 variable "a_string" {
-  type = string
+  type    = string
   default = "100.2"
 }
 
-
 output "number" {
-  value = "${tonumber(var.a_string)}"
+  value = tonumber(var.a_string)
 }
+
 output "ceil" {
-  value = "${ceil(tonumber(var.a_string))}"
+  value = ceil(tonumber(var.a_string))
 }

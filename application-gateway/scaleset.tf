@@ -3,16 +3,15 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
 
-
-  zones           = var.zones
+  zones = var.zones
 
   instances = 2
-  sku       = "Standard_A1_v2"
+  sku       = "Standard_DC1s_v2"
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 
@@ -30,7 +29,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
     type_handler_version = "2.0"
     settings             = <<SETTINGS
         {
-          "fileUris": ["https://raw.githubusercontent.com/in4it/terraform-azure-course/master/application-gateway/install_nginx.sh"], 
+          "fileUris": ["https://raw.githubusercontent.com/in4it/terraform-azure-course/master/application-gateway/install_nginx.sh"],
           "commandToExecute": "./install_nginx.sh"
         }
       SETTINGS
@@ -42,14 +41,14 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
   }
 
   network_interface {
-    name                                     = "networkprofile"
-    primary                                  = true
-    network_security_group_id                = azurerm_network_security_group.demo-instance.id
+    name                      = "networkprofile"
+    primary                   = true
+    network_security_group_id = azurerm_network_security_group.demo-instance.id
 
     ip_configuration {
-      name                                   = "IPConfiguration"
-      primary                                = true
-      subnet_id                              = azurerm_subnet.demo-subnet-2.id
+      name                                         = "IPConfiguration"
+      primary                                      = true
+      subnet_id                                    = azurerm_subnet.demo-subnet-2.id
       application_gateway_backend_address_pool_ids = azurerm_application_gateway.app-gateway.backend_address_pool.*.id
     }
   }

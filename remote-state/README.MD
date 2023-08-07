@@ -7,7 +7,7 @@ az login
 
 # Create recoursegroup for Terraform state
 ```
-az group create -l westeurope -n terraform-state 
+az group create -l westeurope -n terraform-state
 ```
 
 # Create storage account
@@ -59,4 +59,3 @@ terraform state show azurerm_virtual_machine.demo-instance
 terraform destroy
 az group delete --name terraform-state --no-wait
 ```
-

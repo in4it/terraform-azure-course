@@ -7,7 +7,7 @@ resource "azurerm_virtual_machine" "demo-instance" {
   vm_size               = "Standard_DC1s_v2"
 
   # this is a demo instance, so we can delete all data on termination
-  delete_os_disk_on_termination = true
+  delete_os_disk_on_termination    = true
   delete_data_disks_on_termination = true
 
   storage_image_reference {
@@ -38,15 +38,15 @@ resource "azurerm_virtual_machine" "demo-instance" {
     }
   }
 
-  tags = {for k, v in merge({ name = "instance1" }, var.project_tags): k => lower(v)}
+  tags = { for k, v in merge({ name = "instance1" }, var.project_tags) : k => lower(v) }
 }
 
 resource "azurerm_network_interface" "demo-instance" {
-  name                      = "${var.prefix}-instance1"
-  location                  = var.location
-  resource_group_name       = azurerm_resource_group.demo.name
+  name                = "${var.prefix}-instance1"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.demo.name
 
-  dynamic ip_configuration {
+  dynamic "ip_configuration" {
     for_each = var.ip-config
     content {
       name                          = lookup(ip_configuration.value, "name")
@@ -64,9 +64,9 @@ resource "azurerm_network_interface_security_group_association" "allow-ssh" {
 }
 
 resource "azurerm_public_ip" "demo-instance" {
-    count                        = length(var.ip-config)
-    name                         = "instance1-public-ip-${count.index}"
-    location                     = var.location
-    resource_group_name          = azurerm_resource_group.demo.name
-    allocation_method            = "Static"
+  count               = length(var.ip-config)
+  name                = "instance1-public-ip-${count.index}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.demo.name
+  allocation_method   = "Static"
 }

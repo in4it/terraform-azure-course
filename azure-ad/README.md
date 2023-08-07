@@ -1,4 +1,4 @@
-# Setup CosmosDB 
+# Setup CosmosDB
 
 # Sign in
 ```

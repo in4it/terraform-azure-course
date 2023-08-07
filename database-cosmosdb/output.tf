@@ -1,5 +1,5 @@
 output "connection_strings" {
-  value     = nonsensitive(azurerm_cosmosdb_account.db.connection_strings)
+  value = nonsensitive(azurerm_cosmosdb_account.db.connection_strings)
 }
 
 output "demo_instance_public_ip" {

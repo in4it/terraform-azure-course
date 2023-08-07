@@ -1,3 +1,3 @@
 output "timestamp" {
-  value = "${timestamp()}"
+  value = timestamp()
 }

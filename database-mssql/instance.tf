@@ -3,12 +3,12 @@ resource "azurerm_linux_virtual_machine" "demo-instance" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.demo.name
   network_interface_ids = ["${azurerm_network_interface.demo-instance.id}"]
-  vm_size               = "Standard_DC1s_v2"
+  size                  = "Standard_DC1s_v2"
 
-  disable_password_authentication = true  # change to false if you want to use a password instead of ssh key
+  disable_password_authentication = true # change to false if you want to use a password instead of ssh key
   #admin_password                 = "..."
 
-  storage_image_reference {
+  source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts-gen2"
@@ -31,9 +31,9 @@ resource "azurerm_linux_virtual_machine" "demo-instance" {
 }
 
 resource "azurerm_network_interface" "demo-instance" {
-  name                      = "${var.prefix}-instance1"
-  location                  = var.location
-  resource_group_name       = azurerm_resource_group.demo.name
+  name                = "${var.prefix}-instance1"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.demo.name
 
   ip_configuration {
     name                          = "instance1"

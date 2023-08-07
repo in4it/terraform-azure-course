@@ -3,5 +3,5 @@ variable "substring" {
 }
 
 output "substr" {
-  value = "${substr(var.substring, 5, 3)}"
+  value = substr(var.substring, 5, 3)
 }

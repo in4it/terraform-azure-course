@@ -3,5 +3,5 @@ variable "md5string" {
 }
 
 output "md5" {
-  value = "${md5(var.md5string)}"
+  value = md5(var.md5string)
 }

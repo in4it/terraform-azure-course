@@ -7,5 +7,5 @@ variable "add" {
 }
 
 output "timeadd" {
-  value = "${timeadd(var.date, var.add)}"
+  value = timeadd(var.date, var.add)
 }
