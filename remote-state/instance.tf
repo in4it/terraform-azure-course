@@ -40,9 +40,9 @@ resource "azurerm_virtual_machine" "demo-instance" {
 }
 
 resource "azurerm_network_interface" "demo-instance" {
-  name                      = "${var.prefix}-instance1"
-  location                  = var.location
-  resource_group_name       = azurerm_resource_group.demo.name
+  name                = "${var.prefix}-instance1"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.demo.name
 
   ip_configuration {
     name                          = "instance1"

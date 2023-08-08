@@ -7,7 +7,7 @@ variable "key-default" {
 }
 
 variable "map" {
-  type = map
+  type = map(any)
 
   default = {
     "one" = "1",
@@ -16,9 +16,9 @@ variable "map" {
 }
 
 output "lookup_output" {
-  value = "${lookup(var.map, "two")}"
+  value = lookup(var.map, "two")
 }
 
 output "lookup_output_var" {
-  value = "${lookup(var.map,var.key,var.key-default)}"
+  value = lookup(var.map, var.key, var.key-default)
 }

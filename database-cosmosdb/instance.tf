@@ -40,9 +40,9 @@ resource "azurerm_virtual_machine" "demo-instance" {
 }
 
 resource "azurerm_network_interface" "demo-instance" {
-  name                      = "${var.prefix}-instance1"
-  location                  = var.location
-  resource_group_name       = azurerm_resource_group.demo.name
+  name                = "${var.prefix}-instance1"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.demo.name
 
   ip_configuration {
     name                          = "instance1"
@@ -65,7 +65,7 @@ resource "azurerm_public_ip" "demo-instance" {
 }
 
 data "azurerm_public_ip" "public_ip" {
-  name = "instance1-public-ip"
+  name                = "instance1-public-ip"
   resource_group_name = azurerm_resource_group.demo.name
-  depends_on = [ azurerm_public_ip.demo-instance, azurerm_virtual_machine.demo-instance ]
+  depends_on          = [azurerm_public_ip.demo-instance, azurerm_virtual_machine.demo-instance]
 }

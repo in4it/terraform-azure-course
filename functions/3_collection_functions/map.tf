@@ -3,5 +3,5 @@ variable "value" {
 }
 
 output "map_output" {
-  value = "${map("key",var.value)}"
+  value = map("key", var.value)
 }

@@ -1,4 +1,4 @@
-# Setup CosmosDB 
+# Setup CosmosDB
 
 # Sign in
 ```
@@ -33,7 +33,7 @@ curl 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-
 ```
 
 ```
-curl https://<STORAGE ACCOUNT>.blob.core.windows.net/<CONTAINER NAME>/traningfile.txt -H "x-ms-version: 2017-11-09" -H "Authorization: Bearer <ACCESS TOKEN>"
+curl https://<STORAGE ACCOUNT>.blob.core.windows.net/<CONTAINER NAME>/trainingfile.txt -H "x-ms-version: 2017-11-09" -H "Authorization: Bearer <ACCESS TOKEN>"
 ```
 
 # Cleanup Demo

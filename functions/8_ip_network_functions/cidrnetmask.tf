@@ -3,5 +3,5 @@ variable "range" {
 }
 
 output "cidrnetmask" {
-  value = "${cidrnetmask(var.range)}"
+  value = cidrnetmask(var.range)
 }

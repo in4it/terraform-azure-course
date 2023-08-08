@@ -19,6 +19,4 @@ provider "azurerm" {
 
 # Configure the Azure Active Directory Provider
 provider "azuread" {
-  features {
-  }
 }

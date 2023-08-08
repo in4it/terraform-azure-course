@@ -3,5 +3,5 @@ variable "string" {
 }
 
 output "lower" {
-  value = "${lower(var.string)}"
+  value = lower(var.string)
 }

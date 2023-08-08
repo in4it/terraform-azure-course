@@ -1,5 +1,5 @@
 resource "azuread_application" "aks-demo" {
-  display_name               = "aks-demo"
+  display_name = "aks-demo"
 }
 
 resource "azuread_service_principal" "aks-demo" {
