@@ -28,6 +28,7 @@ resource "azurerm_virtual_machine" "demo-instance-1" {
     computer_name  = "demo-instance"
     admin_username = "demo"
     #admin_password = "..."
+    custom_data    = base64encode("#!/bin/bash\n\napt-get update && apt-get install -y net-tools")
   }
 
   os_profile_linux_config {
@@ -97,16 +98,20 @@ resource "azurerm_virtual_machine" "demo-instance-2" {
     sku       = "16.04-LTS"
     version   = "latest"
   }
+
   storage_os_disk {
     name              = "myosdisk2"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
+
   os_profile {
     computer_name  = "demo-instance"
     admin_username = "demo"
+    custom_data    = base64encode("#!/bin/bash\n\napt-get update && apt-get install -y net-tools")
   }
+
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
