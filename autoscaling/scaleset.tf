@@ -5,7 +5,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
 
   # automatic rolling upgrade
   automatic_os_upgrade_policy {
-    enable_automatic_os_upgrade = true
+    enable_automatic_os_upgrade = false
     disable_automatic_rollback  = false
   }
 
@@ -15,6 +15,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
     max_unhealthy_upgraded_instance_percent = 5
     pause_time_between_batches              = "PT0S"
   }
+  
+  upgrade_mode = "Rolling"
 
   # required when using rolling upgrade policy
   health_probe_id = azurerm_lb_probe.demo.id
