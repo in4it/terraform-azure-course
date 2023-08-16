@@ -2,7 +2,7 @@ resource "azurerm_linux_virtual_machine" "demo-instance" {
   name                  = "${var.prefix}-vm"
   location              = var.location
   resource_group_name   = azurerm_resource_group.demo.name
-  network_interface_ids = ["${azurerm_network_interface.demo-instance.id}"]
+  network_interface_ids = ["azurerm_network_interface.demo-instance.id"]
   size                  = "Standard_DC1s_v2"
 
   disable_password_authentication = true # change to false if you want to use a password instead of ssh key

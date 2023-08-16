@@ -28,7 +28,7 @@ resource "azurerm_virtual_machine" "demo-instance-1" {
     computer_name  = "demo-instance"
     admin_username = "demo"
     #admin_password = "..."
-    custom_data    = base64encode("#!/bin/bash\n\napt-get update && apt-get install -y net-tools")
+    custom_data = base64encode("#!/bin/bash\n\napt-get update && apt-get install -y net-tools")
   }
 
   os_profile_linux_config {
