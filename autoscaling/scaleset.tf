@@ -15,7 +15,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
     max_unhealthy_upgraded_instance_percent = 5
     pause_time_between_batches              = "PT0S"
   }
-  
+
   upgrade_mode = "Rolling"
 
   # required when using rolling upgrade policy

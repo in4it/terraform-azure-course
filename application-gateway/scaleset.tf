@@ -49,7 +49,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
       name                                         = "IPConfiguration"
       primary                                      = true
       subnet_id                                    = azurerm_subnet.demo-subnet-2.id
-      application_gateway_backend_address_pool_ids = azurerm_application_gateway.app-gateway.backend_address_pool.*.id
+      application_gateway_backend_address_pool_ids = azurerm_application_gateway.app-gateway.backend_address_pool[*].id
     }
   }
 }
