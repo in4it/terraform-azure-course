@@ -6,7 +6,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "demo" {
   zones = var.zones
 
   instances = 2
-  sku       = "Standard_DC1s_v2"
+  sku       = "Standard_B1s"
 
   source_image_reference {
     publisher = "Canonical"

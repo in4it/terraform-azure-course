@@ -4,7 +4,7 @@ resource "azurerm_virtual_machine" "demo-instance-1" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.demo.name
   network_interface_ids = [azurerm_network_interface.demo-instance-1.id]
-  vm_size               = "Standard_DC1s_v2"
+  vm_size               = "Standard_B1s"
 
   # this is a demo instance, so we can delete all data on termination
   delete_os_disk_on_termination    = true
@@ -86,7 +86,7 @@ resource "azurerm_virtual_machine" "demo-instance-2" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.demo.name
   network_interface_ids = [azurerm_network_interface.demo-instance-2.id]
-  vm_size               = "Standard_DC1s_v2"
+  vm_size               = "Standard_B1s"
 
   # this is a demo instance, so we can delete all data on termination
   delete_os_disk_on_termination    = true
