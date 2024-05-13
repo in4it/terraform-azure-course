@@ -4,8 +4,8 @@ resource "azurerm_application_gateway" "app-gateway" {
   location            = var.location
 
   sku {
-    name     = "Standard_Small"
-    tier     = "Standard"
+    name     = "Standard_v2"
+    tier     = "Standard_v2"
     capacity = 2
   }
 
@@ -46,6 +46,7 @@ resource "azurerm_application_gateway" "app-gateway" {
 
   request_routing_rule {
     name                       = "httpRoutingRule"
+    priority                   = 9
     rule_type                  = "Basic"
     http_listener_name         = "httpListener"
     backend_address_pool_name  = "BackEndAddressPool"
@@ -57,6 +58,7 @@ resource "azurerm_public_ip" "demo" {
   name                = "demo-public-ip"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
   domain_name_label   = azurerm_resource_group.demo.name
+  sku                 = "Standard"
 }
