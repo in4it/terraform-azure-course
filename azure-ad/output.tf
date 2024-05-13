@@ -3,7 +3,7 @@ output "display_name" {
 }
 
 output "client_id" {
-  value = azuread_application.training-app.application_id
+  value = azuread_application.training-app.client_id
 }
 
 output "client_secret" {

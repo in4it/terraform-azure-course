@@ -14,7 +14,7 @@ resource "azuread_application" "training-app" {
 }
 
 resource "azuread_service_principal" "training-sp" {
-  application_id = azuread_application.training-app.application_id
+  client_id = azuread_application.training-app.client_id
 }
 
 resource "azuread_service_principal_password" "sp-password" {

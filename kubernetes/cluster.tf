@@ -11,7 +11,7 @@ resource "azurerm_kubernetes_cluster" "demo-cluster" {
   }
 
   service_principal {
-    client_id     = azuread_service_principal.aks-demo.application_id
+    client_id     = azuread_service_principal.aks-demo.client_id
     client_secret = azuread_service_principal_password.aks-demo.value
   }
 }
