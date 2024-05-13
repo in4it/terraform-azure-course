@@ -3,7 +3,7 @@ resource "azuread_application" "aks-demo" {
 }
 
 resource "azuread_service_principal" "aks-demo" {
-  application_id = azuread_application.aks-demo.application_id
+  client_id = azuread_application.aks-demo.client_id
 }
 
 resource "azuread_service_principal_password" "aks-demo" {
