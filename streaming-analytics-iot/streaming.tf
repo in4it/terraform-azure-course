@@ -95,7 +95,7 @@ resource "azurerm_iothub" "iotHub" {
     connection_string          = azurerm_storage_account.storage-account.primary_blob_connection_string
     container_name             = azurerm_storage_container.storage-container.name
     file_name_format           = "{iothub}/{YYYY}-{MM}-{DD}/{HH}-{mm}-{partition}"
-    encoding                   = "avro"
+    encoding                   = "Avro"
     batch_frequency_in_seconds = 60
     max_chunk_size_in_bytes    = 314572800
   }
