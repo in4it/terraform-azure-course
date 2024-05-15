@@ -5,7 +5,7 @@
 az login
 ```
 
-# Create recoursegroup for Terraform state
+# Create resource group for Terraform state
 ```
 az group create -l westeurope -n terraform-state
 ```
