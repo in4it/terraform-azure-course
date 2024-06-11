@@ -1,4 +1,4 @@
-# Setup CosmosDB 
+# Setup CosmosDB
 
 # Sign in
 ```
@@ -18,7 +18,7 @@ terraform apply
 # Example conditionally omitted argument
 # Run Terraform plan
 ```
-terraform plan --var override_tier=cool
+terraform plan --var override_tier=Cool
 ```
 
 # Example conditional expression

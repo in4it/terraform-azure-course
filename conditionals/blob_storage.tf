@@ -34,7 +34,6 @@ variable "filename" {
   default = ""
 }
 
-
 resource "azurerm_storage_blob" "training-file" {
   # Example conditional expression
   name                   = var.filename != "" ? var.filename : "trainingfile.txt"
