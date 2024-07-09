@@ -3,5 +3,7 @@ variable "value" {
 }
 
 output "map_output" {
-  value = map("key", var.value)
+  value = tomap({
+    "key" = var.value
+  })
 }
