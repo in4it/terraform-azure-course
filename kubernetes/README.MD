@@ -2,7 +2,6 @@
 
 After creating the service principal, use the following command to list the kube config value.
 
-
 ```
 terraform output -raw kube_config
 ```
