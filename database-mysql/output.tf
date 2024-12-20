@@ -1,5 +1,5 @@
 output "mysql_fqdn" {
-  value = azurerm_mysql_server.demo.fqdn
+  value = azurerm_mysql_flexible_server.demo.fqdn
 }
 
 output "demo_instance_ip" {
