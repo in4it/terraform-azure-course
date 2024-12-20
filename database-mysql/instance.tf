@@ -56,7 +56,7 @@ resource "azurerm_public_ip" "demo-instance" {
   name                = "instance1-public-ip"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface_security_group_association" "demo-instance" {

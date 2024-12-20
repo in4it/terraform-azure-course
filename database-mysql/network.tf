@@ -30,12 +30,18 @@ resource "azurerm_subnet" "demo-database-1" {
   }
 }
 
+resource "random_string" "random" {
+  length  = 8
+  upper   = false
+  special = false
+}
+
 resource "azurerm_private_dns_zone" "demo" {
-  name                = "example.mysql.database.azure.com"
+  name                = "mysql-training-${random_string.random.result}.mysql.database.azure.com"
   resource_group_name = azurerm_resource_group.demo.name
 }
 
-resource "azurerm_private_dns_zone_virtual_network_link" "example" {
+resource "azurerm_private_dns_zone_virtual_network_link" "demo" {
   name                  = "exampleVnetZone.com"
   private_dns_zone_name = azurerm_private_dns_zone.demo.name
   virtual_network_id    = azurerm_virtual_network.demo.id
